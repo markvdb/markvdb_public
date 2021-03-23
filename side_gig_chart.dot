@@ -128,7 +128,7 @@ digraph G {
   q_profit_10000 -> no_point [label="no"];
   q_self_account -> q_risky_self_account [label="yes"];
   q_risky_self_account -> incorporate_commv [label="no"];
-  q_risky_self_account -> no_point [label="yes"];
+  q_risky_self_account -> q_profit_10000 [label="yes"];
   incorporate_commv -> incorporated;
   incorporate_bv -> incorporated;
   incorporated -> inc_prov_tax;
