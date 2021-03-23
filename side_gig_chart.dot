@@ -1,0 +1,151 @@
+digraph G {
+  labelloc="t";
+  label="Belgium side gig: a decision chart";
+  
+  node [shape=box];
+  
+  q_status[label="What type of side gig do you prefer?"];
+
+
+  // Employee   
+  q_flexi_job[label="Do you want to work in the hotel/restaurant/cafe/shop/beauty sector?"]
+  q_flexi_job_condition[label="Do you have at least 80% employee contract, or are you retired?"]
+  flexi_job[label="flexi job\nyou pay: 0% income tax\nminimum net wage: 10.28€\nno employee side tax\nincludes 7.67% of holiday pay right away\nemployer pays 25% social security on top\nsocial benefits: limited"]
+  no_flexi_job[label="flexi job not allowed.\nOthers are cheaper to your potential employer.\nGo work in a different sector."]
+  normal_employee[label="normal employee"]
+  marginal_tax_rate[label="You pay the marginal tax rate."];
+  q_marginal_tax_rate[label="How much do you expect to earn this year _before_ taxes in 2021?"]
+  marginal_tax_25[label="under 13540€\nyou pay: 25% federal tax"]
+  marginal_tax_40[label="under 23900€\nyou pay: 40% federal tax"]
+  marginal_tax_45[label="under 41360€\nyou pay: 45% federal tax"]
+  marginal_tax_50[label="over 41360€\nyou pay: 50% federal tax"]
+  local_tax[label="you pay: local tax on federal tax amount\ntypical rate: 7%\nlist: https://tinyurl.com/3h8tppx6"]
+
+  // Sharing economy
+  sharing_economy[label="sharing economy (e.g. Deliveroo courier)\nyou receive: contractually agreed\nyou pay: 10% flat income tax\n(withheld by the sharing economy platform)"]
+  q_sharing_economy_unemployed[label="Are you currently unemployed?"]
+  sharing_economy_unemployed[label="no unemployment benefits for the days you work"]
+
+
+  // Speculation
+  capital_gains[label="one-off diverse income or speculative gains"];
+  capital_gains_tax[label="you pay: 33% federal tax"];
+
+  // Self employed
+  self_employed[label="self employed"];
+
+  q_need_formalising[label="Do you want or need to formalise your business?"];
+  informal[label="informal economy.\nThis is illegal.\nyou pay: 21% VAT on purchases"];
+
+  q_profit[label="Is your annual net profit forecast\n> 1500€ for the foreseeable future?"];
+  q_self_account[label="Are you comfortable doing your own\nsimple single entry accounts?"];
+
+  q_risky_self_account[label="Is your activity risky in terms of liability?"];
+  q_profit_10000[label="Is your annual net profit forecast\n> 10000€ for the foreseeable future?"];
+  no_point[label="Uncanny valley. Increase net profit or\nstay under 1500€ No point otherwise."];
+
+  incorporate_commv[label="incorporate comm.v/SComm.\nyou pay: 85.50€ setup cost"]
+  incorporate_bv[label="incorporate bv\ncompany pays: ~2000€ setup cost\ncompany pays: accountant ~2000€/year"];
+  incorporated[label="You now own a company."];
+
+  inc_fed_tax[label="company pays: 25% federal tax"];
+  inc_prov_tax[label="company pays: 0-124€/year provincial tax\ndepends on province"];
+  inc_soc_contrib[label="company pays: 347.5€/year social contribution"];
+  inc_div_tax_15[label="company pays: 15% dividend withholding tax\nsubject to conditions (5 year wait, ...)"];
+  inc_div_tax_30[label="company pays: 30% dividend withholding tax"];
+
+  q_vat[label="Is your activity subject to VAT?"];
+  q_turnover[label="Does your turnover exceed 25000€?"];
+  turnover_over_25000[label="register for VAT\nyou pay: 86.55€ setup cost\npaperwork: quarterly VAT declaration\npaperwork: yearly client listing"];
+  q_vat_sector[label="Is your activity elegible for VAT exemption?\nnotable exception: construction"];
+  vat_exempt[label="register for VAT exemption\nyou pay: 86.55€ setup cost\npaperwork: yearly client listing"];
+
+  sole_proprietor[label="establish sole proprietorship/\n(zelfstandig bijberoep/indépendant à titre complémentaire)\nyou pay: 90.50€ setup cost"]
+
+
+  // Real estate
+  real_estate[label="real estate"]
+  q_rental[label="Do you want to rent out or flip properties?"]
+  rent[label="rent out"];
+  flip;
+  q_flip[label="Have you lived in the house for at least 12 months,\n6 of which within the year before the sale?\nOR Have you owned the house for at least five years?"];
+  flip_before_5_years[label="you pay: 16.5% federal capital gains tax\nsome significant deductions possible"];
+  flip_after_5_years[label="you pay no capital gains tax"];
+  q_rental_residential[label="Is your rental strictly to private individuals,\nexcluding any professional use?"];
+  rental_residential[label="add cadastral revenue * 1,8630 for 2021 * 1.4\n to your taxable income at the marginal rate"];
+  rental_commercial[label="add the full rental income* 0.6\nto your taxable income at the marginal rate"];
+
+  //Decision tree
+  q_status-> employee;
+  q_status-> sharing_economy;
+  q_status -> self_employed;
+  q_status -> real_estate;
+  q_status -> capital_gains;
+
+  employee-> q_flexi_job;
+  q_flexi_job -> normal_employee[label="no"];
+  normal_employee -> marginal_tax_rate;
+  marginal_tax_rate -> q_marginal_tax_rate;
+  q_marginal_tax_rate -> marginal_tax_25;
+  q_marginal_tax_rate -> marginal_tax_40;
+  q_marginal_tax_rate -> marginal_tax_45;
+  q_marginal_tax_rate -> marginal_tax_50;
+  marginal_tax_25 -> local_tax;
+  marginal_tax_40 -> local_tax;
+  marginal_tax_45 -> local_tax;
+  marginal_tax_50 -> local_tax;
+
+  q_flexi_job -> q_flexi_job_condition [label="yes"];
+  q_flexi_job_condition -> flexi_job [label="yes"];
+  q_flexi_job_condition -> no_flexi_job [label="no"];
+  
+  sharing_economy -> q_sharing_economy_unemployed;
+  q_sharing_economy_unemployed->sharing_economy_unemployed[label="yes"];
+  
+  real_estate -> q_rental;
+  q_rental -> rent;
+  q_rental -> flip;
+  flip -> q_flip;
+  q_flip -> flip_before_5_years[label="no"];
+  q_flip -> flip_after_5_years[label="yes"];
+  flip_before_5_years -> local_tax;
+  rent -> q_rental_residential;
+  q_rental_residential -> rental_commercial[label="no"];
+  q_rental_residential -> rental_residential[label="yes"];
+  rental_residential -> marginal_tax_rate;
+  rental_commercial -> marginal_tax_rate;
+
+  capital_gains -> capital_gains_tax;
+  capital_gains_tax -> local_tax;
+
+  q_need_formalising -> q_profit [label="yes"];
+  q_need_formalising -> informal [label="no"];
+
+  q_profit -> sole_proprietor [label="no"];
+  q_profit -> q_self_account [label="yes"];
+  q_self_account -> q_profit_10000 [label="no"];
+  q_profit_10000 -> incorporate_bv [label="yes"];
+  q_profit_10000 -> no_point [label="no"];
+  q_self_account -> q_risky_self_account [label="yes"];
+  q_risky_self_account -> incorporate_commv [label="no"];
+  q_risky_self_account -> no_point [label="yes"];
+  incorporate_commv -> incorporated;
+  incorporate_bv -> incorporated;
+  incorporated -> inc_prov_tax;
+  incorporated -> q_vat;
+  inc_prov_tax-> inc_soc_contrib;
+  inc_soc_contrib-> inc_fed_tax;
+  inc_fed_tax-> inc_div_tax_15;
+  inc_fed_tax-> inc_div_tax_30;
+  
+
+  sole_proprietor -> q_vat;
+  sole_proprietor -> marginal_tax_rate;
+  q_vat -> q_turnover[label="yes"];
+  q_turnover -> q_vat_sector[label="no"];
+  q_turnover -> turnover_over_25000[label="yes"];
+  q_vat_sector -> turnover_over_25000[label="no"];
+  q_vat_sector -> vat_exempt[label="yes"];
+
+  self_employed -> q_need_formalising;
+}
