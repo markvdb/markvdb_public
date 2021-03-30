@@ -22,7 +22,7 @@ digraph G {
   local_tax[label="you pay: local tax on federal tax amount\ntypical rate: 7%\nlist: https://tinyurl.com/3h8tppx6"]
 
   // Sharing economy
-  sharing_economy[label="sharing economy (e.g. Deliveroo courier)\nyou receive: contractually agreed\nyou pay: 10% flat income tax\n(withheld by the sharing economy platform)"]
+  sharing_economy[label="sharing economy (e.g. Deliveroo courier)\nyou receive: contractually agreed\nup to 6390€/year\nyou pay: 10% flat income tax\n(withheld by the sharing economy platform)"]
   q_sharing_economy_unemployed[label="Are you currently unemployed?"]
   sharing_economy_unemployed[label="no unemployment benefits for the days you work"]
 
@@ -75,12 +75,17 @@ digraph G {
   rental_residential[label="add cadastral revenue * 1,8630 for 2021 * 1.4\n to your taxable income at the marginal rate"];
   rental_commercial[label="add the full rental income* 0.6\nto your taxable income at the marginal rate"];
 
+  // Volunteer work
+  volunteer[label="volunteer work\nyou receive: up to 35.41€/day\nup to 1416.16€/year\nplus optional transport allowance"];
+
+
   //Decision tree
   q_status-> employee;
   q_status-> sharing_economy;
   q_status -> self_employed;
   q_status -> real_estate;
   q_status -> capital_gains;
+  q_status -> volunteer;
 
   employee-> q_flexi_job;
   q_flexi_job -> normal_employee[label="no"];
