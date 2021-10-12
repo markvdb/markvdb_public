@@ -78,6 +78,8 @@ digraph G {
   // Volunteer work
   volunteer[label="volunteer work\nyou receive: up to 35.41€/day\nup to 1416.16€/year\nplus optional transport allowance"];
 
+  // Creative work
+  creative[label="intellectual rights\nyou pay: +-8% (7.5%+ ~7% local tax)\nfor the intellectual rights part of your work only!"]; 
 
   //Decision tree
   q_status-> employee;
@@ -85,6 +87,7 @@ digraph G {
   q_status -> self_employed;
   q_status -> real_estate;
   q_status -> capital_gains;
+  q_status -> creative;
   q_status -> volunteer;
 
   employee-> q_flexi_job;
