@@ -78,6 +78,9 @@ digraph G {
   // Volunteer work
   volunteer[label="volunteer work\nyou receive: up to 35.41€/day\nup to 1416.16€/year\nplus optional transport allowance"];
 
+  // Artistic work
+  artist[label="artistic work\nyou receive: up to 132.13€/day (2021)\nup to 2642.53€/year (2021)\nyou pay: 0 tax\npermit required: artist card"];
+
   // Creative work
   creative[label="intellectual rights\nyou pay: +-8% (7.5%+ ~7% local tax)\nfor the intellectual rights part of your work only!"]; 
 
@@ -89,6 +92,7 @@ digraph G {
   q_status -> capital_gains;
   q_status -> creative;
   q_status -> volunteer;
+  q_status -> artist;
 
   employee-> q_flexi_job;
   q_flexi_job -> normal_employee[label="no"];
