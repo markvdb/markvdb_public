@@ -84,6 +84,9 @@ digraph G {
   // Creative work
   creative[label="intellectual rights\nyou pay: +-8% (7.5%+ ~7% local tax)\nfor the intellectual rights part of your work only!"]; 
 
+  // Care
+  care[label="voluntary firefighter/ambulance driver/civil protection\nyou pay: 0 tax up to 6210€/year (2021)"];
+
   //Decision tree
   q_status-> employee;
   q_status-> sharing_economy;
@@ -93,6 +96,7 @@ digraph G {
   q_status -> creative;
   q_status -> volunteer;
   q_status -> artist;
+  q_status -> care;
 
   employee-> q_flexi_job;
   q_flexi_job -> normal_employee[label="no"];
