@@ -87,6 +87,9 @@ digraph G {
   // Care
   care[label="voluntary firefighter/ambulance driver/civil protection\nyou pay: 0 tax up to 6210€/year (2021)"];
 
+  // Clinical trials
+  clinical_trial[label="clinical trials\ntax free"];
+
   //Decision tree
   q_status-> employee;
   q_status-> sharing_economy;
@@ -97,6 +100,7 @@ digraph G {
   q_status -> volunteer;
   q_status -> artist;
   q_status -> care;
+  q_status -> clinical_trial;
 
   employee-> q_flexi_job;
   q_flexi_job -> normal_employee[label="no"];
